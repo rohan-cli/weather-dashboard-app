@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { environment } from '../../environment';
 import {
   loadWeather,
   loadWeatherSuccess,
@@ -23,7 +24,7 @@ export class WeatherEffects {
         mergeMap(({ city, unit }) =>
           this.http
             .get(
-              `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${unit}&appid=42f046b1237626515e1a8ea9e626e177`
+              `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${unit}&appid=${environment.weatherApiKey}`
             )
             .pipe(
               map((data: any) => loadWeatherSuccess({ data, coord: data.coord })),
