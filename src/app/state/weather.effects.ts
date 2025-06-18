@@ -27,7 +27,6 @@ export class WeatherEffects {
             )
             .pipe(
               map((data: any) => loadWeatherSuccess({ data, coord: data.coord })),
-              tap((data:any)=> console.log('dat++++',data.coord)),
               catchError((error) =>
                 of(loadWeatherFailure({ error: error.message }))
               )
