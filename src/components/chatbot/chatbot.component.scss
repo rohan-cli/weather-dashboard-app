@@ -1,0 +1,23 @@
+.chat-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: #f5f5f5;
+  }
+  
+  .chat-log {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    min-height: 120px;
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  

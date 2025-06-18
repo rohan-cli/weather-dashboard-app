@@ -1,0 +1,30 @@
+<h1>🌦️ Weather Dashboard</h1>
+
+<section>
+  <app-weather-form />
+</section>
+
+<section *ngIf="loading$ | async" class="loader">
+  Loading weather data...
+</section>
+
+<section *ngIf="error$ | async as error">
+  <p style="color: red;">Error: {{ error }}</p>
+</section>
+
+<section *ngIf="weather$ | async as weather">
+  <app-weather-dashboard [weather]="weather" [forecast]="[
+    { date: 'Today', temp: weather.main.temp },
+    { date: 'Tomorrow', temp: weather.main.temp + 1 },
+    { date: 'Day After', temp: weather.main.temp - 1 }
+  ]" />
+</section>
+
+<section *ngIf="coord$ | async as coord">
+  <app-map-view (mapClicked)="onMapClick($event)" [coord]="coord" />
+</section>
+
+<h1>Weather Chat Bot</h1>
+<section>
+  <app-chatbot (cityRequested)="onChatCityRequest($event)" />
+</section>

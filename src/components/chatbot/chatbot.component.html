@@ -1,0 +1,12 @@
+<div class="chat-container">
+    <div class="chat-log">
+      @for (message of chatLog; track message) {
+        <div>{{ message }}</div>
+      }
+    </div>
+    <mat-form-field appearance="outline">
+      <input matInput [(ngModel)]="input" placeholder="Ask e.g. 'Show weather for Paris'">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="handleChat()">Send</button>
+  </div>
+  

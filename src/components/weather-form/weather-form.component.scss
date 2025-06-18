@@ -1,0 +1,17 @@
+form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  mat-form-field {
+    flex: 1 1 200px;
+    min-width: 200px;
+  }
+  
+  button {
+    white-space: nowrap;
+  }
+  

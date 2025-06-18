@@ -1,0 +1,11 @@
+@if (weather) {
+    <mat-card>
+      <h2>Current Weather for {{ weather.name }}</h2>
+      <p>Temperature: {{ weather.main.temp }}°</p>
+      <p>Humidity: {{ weather.main.humidity }}%</p>
+      <p>Wind Speed: {{ weather.wind.speed }} km/h</p>
+      <p>Conditions: {{ weather.weather[0].description }}</p>
+    </mat-card>
+    <div #chartContainer id="forecastChart" style="width:100%; height:400px; margin-top: 1rem;"></div>
+  }
+  
