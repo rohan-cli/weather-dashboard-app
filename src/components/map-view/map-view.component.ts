@@ -1,4 +1,12 @@
-import { Component, Input, OnChanges, SimpleChanges, Output, EventEmitter, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  AfterViewInit,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as L from 'leaflet';
 
@@ -9,22 +17,31 @@ import * as L from 'leaflet';
   templateUrl: './map-view.component.html',
   styleUrls: ['./map-view.component.scss']
 })
-export class MapViewComponent implements OnInit {
+export class MapViewComponent implements AfterViewInit {
+  @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef;
+
   @Output() mapClicked = new EventEmitter<{ lat: number; lon: number }>();
-  @Input() set coord(coords: any) {
-    if (coords)
-      this.initializeMap();
-    this.zoomToCity(coords);
-  }
 
   private map!: L.Map;
 
-  ngOnInit(): void {
+  private _coord: { lat: number; lon: number } | null = null;
+
+  @Input() set coord(coords: { lat: number; lon: number } | null) {
+    this._coord = coords;
+    if (coords && this.map) {
+      this.zoomToCity(coords);
+    }
+  }
+
+  ngAfterViewInit(): void {
     this.initializeMap();
+    if (this._coord) {
+      this.zoomToCity(this._coord);
+    }
   }
 
   initializeMap(): void {
-    this.map = L.map('map').setView([0, 0], 2);
+    this.map = L.map(this.mapContainer.nativeElement).setView([0, 0], 2);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
@@ -37,11 +54,9 @@ export class MapViewComponent implements OnInit {
   }
 
   zoomToCity(coords: { lat: number; lon: number }) {
-    if (this.map) {
-      this.map.flyTo([coords.lat, coords.lon], 10, {
-        animate: true,
-        duration: 1.5
-      });
-    }
+    this.map.flyTo([coords.lat, coords.lon], 10, {
+      animate: true,
+      duration: 1.5
+    });
   }
 }
